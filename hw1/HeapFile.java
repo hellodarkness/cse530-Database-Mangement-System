@@ -151,17 +151,20 @@ public class HeapFile {
 	 * @return
 	 * @throws IOException 
 	 */
-	public ArrayList<Tuple> getAllTuples() throws IOException {
+	public ArrayList<Tuple> getAllTuples() {
 		//your code here
-		ArrayList<Tuple> pagelist = new ArrayList<Tuple>();
-		for (int i = 0; i < this.getNumPages(); i++) {
-			HeapPage page = this.readPage(i);
-			Iterator<Tuple> tuple = page.iterator();
-			while(tuple.hasNext()) {
-				pagelist.add(tuple.next());
+		ArrayList<Tuple> list = new ArrayList<Tuple>();
+		int page = this.getNumPages();
+		for(int i = 0; i < page; i++){
+			HeapPage heappage = this.readPage(i);
+			Iterator<Tuple> iterator = heappage.iterator();
+			int j=0;
+			while(iterator.hasNext()){
+				list.add(iterator.next());
+				j++;
 			}
 		}
-		return pagelist;
+		return list;
 	}
 	
 	/**
